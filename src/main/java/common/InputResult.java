@@ -1,7 +1,6 @@
 package common;
 
 import java.util.Scanner;
-
 public class InputResult {
 	double inputResult = 0;
 
@@ -16,7 +15,7 @@ public class InputResult {
 				active = false;
 			} catch (Exception e) {
 				System.out.println("Invalid input, try again.");
-				
+
 			}
 
 		}
