@@ -9,23 +9,11 @@ class Deca100MTest {
     @Test
     void calculateResult() {
 
-        String expected = "";
-        String actual = "";
+        double expected = 1;
+        double actual = 1;
         Assertions.assertEquals( expected, actual);
     }
 
-    @Test
-    void calculateResult2() {
 
-        String expected = "";
-        String actual = "";
-        Assertions.assertEquals( expected, actual);
     }
-    @Test
-    void calculateResult3() {
 
-        String expected = "";
-        String actual = "";
-        Assertions.assertEquals( expected, actual);
-    }
-}
