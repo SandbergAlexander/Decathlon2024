@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 
 
 import java.awt.*;
+import java.util.ArrayList;
 
+import common.Competitor;
 import decathlon.*;
 
 
@@ -18,7 +20,7 @@ public class MainGUI {
     private JTextField resultField;
     private JComboBox<String> disciplineBox;
     private JTextArea outputArea;
-
+    private ArrayList<Competitor> competitors = new ArrayList<>();
     public static void main(String[] args) {
         new MainGUI().createAndShowGUI();
     }
@@ -118,7 +120,12 @@ public class MainGUI {
                         score = decaShotPut.calculateResult(result);
                         break;
                 }
+                Competitor competitor = new Competitor(name);  // Create a new competitor
+                competitors.add(competitor);        // Add to the list
 
+
+                // Update the competitor's score for the selected discipline
+                competitor.setScore(discipline, score);
                 outputArea.append("Competitor: " + name + "\n");
                 outputArea.append("Discipline: " + discipline + "\n");
                 outputArea.append("Result: " + result + "\n");
