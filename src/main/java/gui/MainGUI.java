@@ -72,6 +72,10 @@ public class MainGUI {
         exportButton.addActionListener(new ExportButtonListener());  // New export button listener
         panel.add(exportButton);  // Add export button to the panel
 
+        // Tooltips for input fields and buttons
+        nameField.setToolTipText("Enter a valid name for the competitor");
+        resultField.setToolTipText("Enter a valid result in numbers for the selected discipline");
+
         // Output area
         outputArea = new JTextArea(5, 40);
         outputArea.setEditable(false);
@@ -106,6 +110,19 @@ public class MainGUI {
 
             try {
                 double result = Double.parseDouble(resultText);
+
+                if (name.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid name for the competitor", "Invalid Name", JOptionPane.ERROR_MESSAGE);
+                    return; // Exit the method if name is empty or doesn't start with an uppercase letter
+                }
+
+                // Check if all characters are letters
+                for (int i = 0; i < name.length(); i++) {
+                    if (!Character.isLetter(name.charAt(i))) {
+                        JOptionPane.showMessageDialog(null, "Name must only contain letters", "Invalid Name", JOptionPane.ERROR_MESSAGE);
+                        return; // Exit the method if name contains non-letter characters
+                    }
+                }
 
                 int score = 0;
                 switch (discipline) {
@@ -178,8 +195,12 @@ public class MainGUI {
                         score = hepShotPut.calculateResult(result);
                         break;
                 }
-                Competitor competitor = new Competitor(name);  // Create a new competitor
-                competitors.add(competitor);        // Add to the list
+                Competitor competitor = new Competitor(name);
+                if (!competitors.contains(competitor)) {
+                    competitors.add(competitor);
+                } else {
+                    competitor = competitors.get(competitors.indexOf(competitor));
+                }
 
 
                 // Update the competitor's score for the selected discipline
@@ -188,6 +209,7 @@ public class MainGUI {
                 outputArea.append("Discipline: " + discipline + "\n");
                 outputArea.append("Result: " + result + "\n");
                 outputArea.append("Score: " + score + "\n\n");
+                tableModel.addRow(competitor.getRowData());
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Please enter a valid number for the result.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
             }
