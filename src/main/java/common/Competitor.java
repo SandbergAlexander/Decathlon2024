@@ -89,6 +89,5 @@ public class Competitor {
 
         return rowData;
     }
-
 }
 
